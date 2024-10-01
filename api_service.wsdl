@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:ApiService" targetNamespace="urn:ApiService" name="ApiService">
+
+    <wsdl:message name="AuthTokenHeader">
+        <wsdl:part name="AuthToken" element="tns:AuthToken"/>
+    </wsdl:message>
+
+    <wsdl:types>
+        <xsd:schema targetNamespace="urn:ApiService">
+            <xsd:complexType name="AuthToken">
+                <xsd:sequence>
+                    <xsd:element name="AuthToken" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="authenticateRequest">
+        <wsdl:part name="uid" type="xsd:string"/>
+        <wsdl:part name="psswd" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="authenticateResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+        <wsdl:part name="token" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="validateTokenRequest">
+    </wsdl:message>
+
+    <wsdl:message name="validateTokenResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+        <wsdl:part name="uid" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="validateReadRequest">
+        <wsdl:part name="fingerprint" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="validateReadResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+        <wsdl:part name="uid" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="validateWriteRequest">
+        <wsdl:part name="fingerprint" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="validateWriteResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+        <wsdl:part name="uid" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="CreateRequest">
+        <wsdl:part name="uid" type="xsd:string"/>
+        <wsdl:part name="cn" type="xsd:string"/>
+        <wsdl:part name="sn" type="xsd:string"/>
+        <wsdl:part name="mail" type="xsd:string"/>
+        <wsdl:part name="psswd" type="xsd:string"/>
+        <wsdl:part name="maxStorage" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="CreateResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="CreateAdminRequest">
+        <wsdl:part name="uid" type="xsd:string"/>
+        <wsdl:part name="cn" type="xsd:string"/>
+        <wsdl:part name="sn" type="xsd:string"/>
+        <wsdl:part name="mail" type="xsd:string"/>
+        <wsdl:part name="psswd" type="xsd:string"/>
+        <wsdl:part name="maxStorage" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="CreateAdminResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="CreateFileGroupRequest">
+        <wsdl:part name="uid" type="xsd:string"/>
+        <wsdl:part name="groupName" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="CreateFileGroupResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="AddUserToFileGroupRequest">
+        <wsdl:part name="uid" type="xsd:string"/>
+        <wsdl:part name="groupName" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="AddUserToFileGroupResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="ReadRequest">
+        <wsdl:part name="uid" type="xsd:string"/>
+    </wsdl:message>
+    
+    <wsdl:message name="ReadResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+        <wsdl:part name="cn" type="xsd:string"/>
+        <wsdl:part name="sn" type="xsd:string"/>
+        <wsdl:part name="mail" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetUsersFromGroupRequest">
+        <wsdl:part name="groupName" type="xsd:string"/>
+    </wsdl:message>
+    
+    <wsdl:message name="GetUsersFromGroupResponse">
+        <wsdl:part name="users" element="tns:ArrayOfUsers"/>
+    </wsdl:message>
+
+    <wsdl:types>
+        <xsd:schema targetNamespace="urn:ApiService">
+            <xsd:complexType name="ArrayOfUsers">
+                <xsd:sequence>
+                    <xsd:element name="user" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="GetGroupsFromUserRequest">
+    </wsdl:message>
+
+    <wsdl:message name="GetGroupsFromUserResponse">
+        <wsdl:part name="groups" element="tns:ArrayOfGroups"/>
+    </wsdl:message>
+
+    <wsdl:types>
+        <xsd:schema targetNamespace="urn:ApiService">
+            <xsd:complexType name="ArrayOfGroups">
+                <xsd:sequence>
+                    <xsd:element name="group" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="GetMaxStorageRequest">
+    </wsdl:message>
+
+    <wsdl:message name="GetMaxStorageResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+        <wsdl:part name="maxStorage" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="UpdateRequest">
+        <wsdl:part name="uid" type="xsd:string"/>
+        <wsdl:part name="psswd" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="UpdateResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="DeleteRequest">
+        <wsdl:part name="uid" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="DeleteResponse">
+        <wsdl:part name="status" type="xsd:string"/>
+    </wsdl:message>
+    
+    <wsdl:portType name="CrudPortType">
+        <wsdl:operation name="authenticate">
+            <wsdl:input message="tns:authenticateRequest"/>
+            <wsdl:output message="tns:authenticateResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="validateToken">
+            <wsdl:input message="tns:validateTokenRequest"/>
+            <wsdl:output message="tns:validateTokenResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="validateRead">
+            <wsdl:input message="tns:validateReadRequest"/>
+            <wsdl:output message="tns:validateReadResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="validateWrite">
+            <wsdl:input message="tns:validateWriteRequest"/>
+            <wsdl:output message="tns:validateWriteResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="createEntry">
+            <wsdl:input message="tns:CreateRequest"/>
+            <wsdl:output message="tns:CreateResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="createAdminEntry">
+            <wsdl:input message="tns:CreateAdminRequest"/>
+            <wsdl:output message="tns:CreateAdminResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="createFileGroup">
+            <wsdl:input message="tns:CreateFileGroupRequest"/>
+            <wsdl:output message="tns:CreateFileGroupResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="addUserToFileGroup">
+            <wsdl:input message="tns:AddUserToFileGroupRequest"/>
+            <wsdl:output message="tns:AddUserToFileGroupResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="readEntry">
+            <wsdl:input message="tns:ReadRequest"/>
+            <wsdl:output message="tns:ReadResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="getUsersFromGroup">
+            <wsdl:input message="tns:GetUsersFromGroupRequest"/>
+            <wsdl:output message="tns:GetUsersFromGroupResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="getGroupsFromUser">
+            <wsdl:input message="tns:GetGroupsFromUserRequest"/>
+            <wsdl:output message="tns:GetGroupsFromUserResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="getMaxStorage">
+            <wsdl:input message="tns:GetMaxStorageRequest"/>
+            <wsdl:output message="tns:GetMaxStorageResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="updatePassword">
+            <wsdl:input message="tns:UpdateRequest"/>
+            <wsdl:output message="tns:UpdateResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="deleteEntry">
+            <wsdl:input message="tns:DeleteRequest"/>
+            <wsdl:output message="tns:DeleteResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="CrudBinding" type="tns:CrudPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        
+        <wsdl:operation name="authenticate">
+            <soap:operation soapAction="urn:ApiService#authenticate"/>
+            <wsdl:input>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="validateToken">
+            <soap:operation soapAction="urn:ApiService#validateToken"/>
+            <wsdl:input>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="validateRead">
+            <soap:operation soapAction="urn:ApiService#validateRead"/>
+            <wsdl:input>
+                <soap:header message="tns:AuthTokenHeader" part="AuthToken" use="literal"/>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="validateWrite">
+            <soap:operation soapAction="urn:ApiService#validateWrite"/>
+            <wsdl:input>
+                <soap:header message="tns:AuthTokenHeader" part="AuthToken" use="literal"/>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="createEntry">
+            <soap:operation soapAction="urn:ApiService#createEntry"/>
+            <wsdl:input>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="createAdminEntry">
+            <soap:operation soapAction="urn:ApiService#createAdminEntry"/>
+            <wsdl:input>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="createFileGroup">
+            <soap:operation soapAction="urn:ApiService#createFileGroup"/>
+            <wsdl:input>
+                <soap:header message="tns:AuthTokenHeader" part="AuthToken" use="literal"/>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="addUserToFileGroup">
+            <soap:operation soapAction="urn:ApiService#addUserToFileGroup"/>
+            <wsdl:input>
+                <soap:header message="tns:AuthTokenHeader" part="AuthToken" use="literal"/>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="readEntry">
+            <soap:operation soapAction="urn:ApiService#readEntry"/>
+            <wsdl:input>
+                <soap:header message="tns:AuthTokenHeader" part="AuthToken" use="literal"/>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getUsersFromGroup">
+            <soap:operation soapAction="urn:ApiService#getUsersFromGroup"/>
+            <wsdl:input>
+                <soap:header message="tns:AuthTokenHeader" part="AuthToken" use="literal"/>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getGroupsFromUser">
+            <soap:operation soapAction="urn:ApiService#getGroupsFromUser"/>
+            <wsdl:input>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getMaxStorage">
+            <soap:operation soapAction="urn:ApiService#getMaxStorage"/>
+            <wsdl:input>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="updatePassword">
+            <soap:operation soapAction="urn:ApiService#updatePassword"/>
+            <wsdl:input>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="deleteEntry">
+            <soap:operation soapAction="urn:ApiService#deleteEntry"/>
+            <wsdl:input>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="urn:ApiService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="ApiService">
+        <wsdl:port name="CrudPort" binding="tns:CrudBinding">
+            <soap:address location="http://localhost/apiphp/soap-server.php"/>
+        </wsdl:port>
+    </wsdl:service>
+    
+</wsdl:definitions>
