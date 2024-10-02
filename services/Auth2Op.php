@@ -70,13 +70,12 @@ class Auth2Op
 
         LoggerSingleton::getInstance()->info("Permisos: " . $response["permissions"] . " Owner: " . $response["owner"]);
 
-        if ($this->isAdmin(uid: $uid, ldap_connection: $ldap_connection)) {
+        if ($this->isAdmin(uid: $uid, ldap_connection: $ldap_connection))
             return [
                 'status' => "200",
                 'uid' => $uid,
                 'role' => $role
             ];
-        }
 
         if ($response["owner"] == $uid) 
             return [
@@ -106,42 +105,63 @@ class Auth2Op
         }
 
         return [
-            'status' => "418",
+            'status' => "403",
             'uid' => $uid,
             'role' => 'cartoncito'
         ];
     }
 
-    public function validateWrite($uid, $fingerprint, $ldap_connection) 
+    public function validateWrite($uid, $fingerprint, $ldap_connection, $role) 
     {
         $mongoController = new MongoController();
 
         $response = $mongoController->getPermissions(fingerprint: $fingerprint);
-        if ($response == null) return "418";
+        if ($response == null) 
+            return [
+                'status' => "418",
+                'uid' => $uid,
+                'role' => "mishuevos"
+            ];
 
         LoggerSingleton::getInstance()->info("Permisos: " . $response["permissions"] . " Owner: " . $response["owner"]);
 
-        if ($this->isAdmin(uid: $uid, ldap_connection: $ldap_connection)) return "200";
-        if ($response["owner"] == $uid) return "200";
+        if ($this->isAdmin(uid: $uid, ldap_connection: $ldap_connection))
+            return [
+                'status' => "200",
+                'uid' => $uid,
+                'role' => $role
+            ];
+
+        if ($response["owner"] == $uid)
+            return [
+                'status' => "200",
+                'uid' => $uid,
+                'role' => $role
+            ];
 
         $others = $response["permissions"][3]; 
-        if (in_array($others, ["2", "3", "6", "7"])) return "200";
+        if (in_array($others, ["2", "3", "6", "7"]))
+            return [
+                'status' => "200",
+                'uid' => $uid,
+                'role' => $role
+            ];
 
         $group = $response["permissions"][2];
-        if (in_array($group, ["2", "3", "6", "7"])) {
+        if (in_array($group, ["2", "3", "6", "7"]))
             $read = new ReadOp();
             $isUserInGroup = $read->isUserInGroup(uid: $uid, groupName: $response["owner"], ldap_connection: $ldap_connection);
-            if ($isUserInGroup) return "200";
-        }
+            if ($isUserInGroup)
+                return [
+                    'status' => "200",
+                    'uid' => $uid,
+                    'role' => $role
+                ];
 
-        return "403";
-    }
-
-    private function formatSoapResponse($status, $uid)
-    {
         return [
-            'status' => (string) $status,
-            'uid' => (string) $uid
+            'status' => "403",
+            'uid' => $uid,
+            'role' => 'cartoncito'
         ];
     }
 }
