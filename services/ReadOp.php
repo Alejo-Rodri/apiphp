@@ -130,10 +130,10 @@ class ReadOp
             $entries_users = ldap_get_entries($ldap_connection, $search_users);
             LoggerSingleton::getInstance()->info("encontro al susodicho $uid");
             LoggerSingleton::getInstance()->info("Resultados LDAP: " . json_encode($entries_users));
-            if ($entries_users["count"] > 0 && isset($entries_users[0]["roomNumber"])) {
+            if ($entries_users["count"] > 0 && isset($entries_users[0]["roomnumber"])) {
                 return [
                     'status' => 200,
-                    'maxStorage' => $entries_users[0]["roomNumber"][0]
+                    'maxStorage' => $entries_users[0]["roomnumber"][0]
                 ];
             }
         }
@@ -145,10 +145,10 @@ class ReadOp
             $entries_admins = ldap_get_entries($ldap_connection, $search_admins);
             LoggerSingleton::getInstance()->info("encontro al susodicho $uid");
             LoggerSingleton::getInstance()->info("Resultados LDAP: " . json_encode($entries_users));
-            if ($entries_admins["count"] > 0 && isset($entries_admins[0]["roomNumber"])) {
+            if ($entries_admins["count"] > 0 && isset($entries_admins[0]["roomnumber"])) {
                 return [
                     'status' => 200,
-                    'maxStorage' => $entries_admins[0]["roomNumber"][0]
+                    'maxStorage' => $entries_admins[0]["roomnumber"][0]
                 ];
             }
         }
