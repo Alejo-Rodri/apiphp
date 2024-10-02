@@ -132,7 +132,7 @@ class ReadOp
             if ($entries_users["count"] > 0 && isset($entries_users[0]["roomNumber"])) {
                 return [
                     'status' => 200,
-                    'maxStorage' => $entries_users[0]["maxstorage"][0]
+                    'maxStorage' => $entries_users[0]["roomNumber"][0]
                 ];
             }
         }
@@ -146,7 +146,7 @@ class ReadOp
             if ($entries_admins["count"] > 0 && isset($entries_admins[0]["roomNumber"])) {
                 return [
                     'status' => 200,
-                    'maxStorage' => $entries_admins[0]["maxstorage"][0]
+                    'maxStorage' => $entries_admins[0]["roomNumber"][0]
                 ];
             }
         }
