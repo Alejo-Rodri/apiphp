@@ -61,7 +61,8 @@ class Services
         if ($tokenData == null) return "401";
 
         $uid = $tokenData['uid'];
-        return $this->auth2->validateWrite(uid: $uid, fingerprint: $fingerprint, ldap_connection: $this->ldap_connection);
+        $role = $tokenData['role'];
+        return $this->auth2->validateWrite(uid: $uid, fingerprint: $fingerprint, ldap_connection: $this->ldap_connection, role: $role);
     }
 
     public function validateToken()
