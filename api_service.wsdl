@@ -41,6 +41,7 @@
     <wsdl:message name="validateReadResponse">
         <wsdl:part name="status" type="xsd:string"/>
         <wsdl:part name="uid" type="xsd:string"/>
+        <wsdl:part name="role" type="xsd:string"/>
     </wsdl:message>
 
     <wsdl:message name="validateWriteRequest">

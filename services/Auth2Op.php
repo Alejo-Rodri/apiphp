@@ -56,7 +56,7 @@ class Auth2Op
         return false;
     }
 
-    public function validateRead($uid, $fingerprint, $ldap_connection)
+    public function validateRead($uid, $fingerprint, $ldap_connection, $role)
     {
         $mongoController = new MongoController();
 
@@ -64,7 +64,8 @@ class Auth2Op
         if ($response == null)
             return [
                 'status' => "418",
-                'uid' => $uid
+                'uid' => $uid,
+                'role' => "mishuevos"
             ];
 
         LoggerSingleton::getInstance()->info("Permisos: " . $response["permissions"] . " Owner: " . $response["owner"]);
@@ -72,21 +73,24 @@ class Auth2Op
         if ($this->isAdmin(uid: $uid, ldap_connection: $ldap_connection)) {
             return [
                 'status' => "200",
-                'uid' => $uid
+                'uid' => $uid,
+                'role' => $role
             ];
         }
 
         if ($response["owner"] == $uid) 
             return [
                 'status' => "200",
-                'uid' => $uid
+                'uid' => $uid,
+                'role' => $role
             ];
 
         $others = $response["permissions"][3]; 
         if (in_array($others, ["4", "5", "7"])) 
             return [
                 'status' => "200",
-                'uid' => $uid
+                'uid' => $uid,
+                'role' => $role
             ];
 
         $group = $response["permissions"][2];
@@ -96,13 +100,15 @@ class Auth2Op
             if ($isUserInGroup) 
                 return [
                     'status' => "200",
-                    'uid' => $uid
+                    'uid' => $uid,
+                    'role' => $role
                 ];
         }
 
         return [
             'status' => "418",
-            'uid' => $uid
+            'uid' => $uid,
+            'role' => 'cartoncito'
         ];
     }
 
