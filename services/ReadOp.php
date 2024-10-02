@@ -122,14 +122,14 @@ class ReadOp
     public function getMaxStorage($uid, $ldap_connection) {
         $base_dn_users = Env::get("LDAP_OU") . "," . Env::get("LDAP_ROOT_DN");
         $filter = "(uid=$uid)";
-        $attributes = array("maxStorage");
+        $attributes = array("roomNumber");
 
         $search_users = ldap_search($ldap_connection, $base_dn_users, $filter, $attributes);
 
         if ($search_users) {
             $entries_users = ldap_get_entries($ldap_connection, $search_users);
 
-            if ($entries_users["count"] > 0 && isset($entries_users[0]["maxstorage"])) {
+            if ($entries_users["count"] > 0 && isset($entries_users[0]["roomNumber"])) {
                 return [
                     'status' => 200,
                     'maxStorage' => $entries_users[0]["maxstorage"][0]
@@ -143,7 +143,7 @@ class ReadOp
         if ($search_admins) {
             $entries_admins = ldap_get_entries($ldap_connection, $search_admins);
 
-            if ($entries_admins["count"] > 0 && isset($entries_admins[0]["maxstorage"])) {
+            if ($entries_admins["count"] > 0 && isset($entries_admins[0]["roomNumber"])) {
                 return [
                     'status' => 200,
                     'maxStorage' => $entries_admins[0]["maxstorage"][0]
