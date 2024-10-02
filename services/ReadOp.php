@@ -128,7 +128,7 @@ class ReadOp
 
         if ($search_users) {
             $entries_users = ldap_get_entries($ldap_connection, $search_users);
-
+            LoggerSingleton::getInstance()->info("encontro al susodicho $uid");
             if ($entries_users["count"] > 0 && isset($entries_users[0]["roomNumber"])) {
                 return [
                     'status' => 200,
@@ -142,7 +142,7 @@ class ReadOp
 
         if ($search_admins) {
             $entries_admins = ldap_get_entries($ldap_connection, $search_admins);
-
+            LoggerSingleton::getInstance()->info("encontro al susodicho $uid");
             if ($entries_admins["count"] > 0 && isset($entries_admins[0]["roomNumber"])) {
                 return [
                     'status' => 200,
