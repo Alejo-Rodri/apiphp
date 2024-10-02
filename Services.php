@@ -47,50 +47,52 @@ class Services
 
     public function validateRead($fingerprint)
     {
-        $uid = $this->auth2->validateToken();
-        if ($uid == null) return "401";
+        $tokenData = $this->auth2->validateToken();
+        if ($tokenData == null) return "401";
 
+        $uid = $tokenData['uid'];
         return $this->auth2->validateRead(uid: $uid, fingerprint: $fingerprint, ldap_connection: $this->ldap_connection);
     }
 
     public function validateWrite($fingerprint)
     {
-        $uid = $this->auth2->validateToken();
-        if ($uid == null) return "401";
+        $tokenData = $this->auth2->validateToken();
+        if ($tokenData == null) return "401";
 
+        $uid = $tokenData['uid'];
         return $this->auth2->validateWrite(uid: $uid, fingerprint: $fingerprint, ldap_connection: $this->ldap_connection);
     }
 
     public function validateToken()
     {
-        $uid = $this->auth2->validateToken();
-        if ($uid == null) 
+        $result = $this->auth2->validateToken();
+        if ($result == null) 
             return [
                 "status" => "401",
-                "uid" => "unknown"
+                "uid" => "unknown",
+                'role' => "cartoncito"
             ];
 
-        return [
-            "status" => "200",
-            "uid" => $uid
-        ];
+        return $result;
     }
 
     // CRUD
 
     public function createEntry($uid, $cn, $sn, $mail, $psswd, $maxStorage)
     {
-        $uidRequester = $this->auth2->validateToken();
-        if ($uidRequester == null) return "401";
+        $tokenData = $this->auth2->validateToken();
+        if ($tokenData == null) return "401";
 
+        $uidRequester = $tokenData['uid'];
         return $this->create->createEntry(uid: $uid, cn: $cn, sn: $sn, mail: $mail, psswd: $psswd, ldap_connection: $this->ldap_connection, uidRequester: $uidRequester, maxStorage: $maxStorage);
     }
 
     public function createAdminEntry($uid, $cn, $sn, $mail, $psswd, $maxStorage)
     {
-        $uidRequester = $this->auth2->validateToken();
-        if ($uidRequester == null) return "401";
+        $tokenData = $this->auth2->validateToken();
+        if ($tokenData == null) return "401";
 
+        $uidRequester = $tokenData['uid'];
         return $this->create->createAdminEntry(uid: $uid, cn: $cn, sn: $sn, mail: $mail, psswd: $psswd, ldap_connection: $this->ldap_connection, uidRequester: $uidRequester, maxStorage: $maxStorage);
     }
 
@@ -131,16 +133,18 @@ class Services
     }
 
     public function getGroupsFromUser() {
-        $uidRequester = $this->auth2->validateToken();
-        if ($uidRequester == null) return "401";
+        $tokenData = $this->auth2->validateToken();
+        if ($tokenData == null) return "401";
 
+        $uidRequester = $tokenData['uid'];
         return $this->read->getGroupsFromUser(uid: $uidRequester, ldap_connection: $this->ldap_connection);
     }
 
     public function getMaxStorage() {
-        $uidRequester = $this->auth2->validateToken();
-        if ($uidRequester == null) return "401";
+        $tokenData = $this->auth2->validateToken();
+        if ($tokenData == null) return "401";
 
+        $uidRequester = $tokenData['uid'];
         return $this->read->getMaxStorage(uid: $uidRequester, ldap_connection: $this->ldap_connection);
     }
 

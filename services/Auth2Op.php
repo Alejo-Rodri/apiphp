@@ -24,7 +24,11 @@ class Auth2Op
             $decodedToken = JWT::decode($authToken, new Key(Env::get("API_KEY"), 'HS256'));
             $decoded_array = (array) $decodedToken;
             LoggerSingleton::getInstance()->info("uid: " . $decoded_array["uid"]);
-            return $decoded_array["uid"];
+            return [
+                'status' => 200,
+                'uid' => $decoded_array["uid"],
+                'role' => $decoded_array["role"]
+            ];
         } catch (Exception $exception) {
             LoggerSingleton::getInstance()->info($exception->getMessage());
             return null;
