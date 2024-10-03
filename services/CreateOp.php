@@ -31,7 +31,7 @@ class CreateOp
         );
 
         if (ldap_add($ldap_connection, $dn, $attributes)) {
-            if ($this->createFileGroup(uid: $uid, groupName: $uid, ldap_connection: $ldap_connection) == 200) $toReturn = "200";
+            if ($this->createFileGroup(uid: $uid, groupName: $uid, ldap_connection: $ldap_connection) == 201) $toReturn = "201";
             else $toReturn = "404";
         }
         else $toReturn = "404";
@@ -64,7 +64,7 @@ class CreateOp
         );
 
         if (ldap_add($ldap_connection, $dn, $attributes)) {
-            if ($this->createFileGroup(uid: $uid, groupName: $uid, ldap_connection: $ldap_connection) == 200) $toReturn = "200";
+            if ($this->createFileGroup(uid: $uid, groupName: $uid, ldap_connection: $ldap_connection) == 201) $toReturn = "201";
             else $toReturn = "404";
         } else $toReturn = "404";
 
@@ -84,7 +84,7 @@ class CreateOp
 
         if (ldap_add($ldap_connection, $dn, $attributes)) {
             LoggerSingleton::getInstance()->info("se creo correctamente el grupo $groupName");
-            $toReturn = "200";
+            $toReturn = "201";
         } else {
             LoggerSingleton::getInstance()->info("no se pudo crear el grupo $groupName :c");
             $toReturn = "404";
