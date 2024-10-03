@@ -131,6 +131,8 @@
     </wsdl:message>
 
     <wsdl:message name="GetGroupsFromUserResponse">
+        <wsdl:part name="status" element="tns:ArrayOfGroups"/>
+        <wsdl:part name="uid" element="tns:ArrayOfGroups"/>
         <wsdl:part name="groups" element="tns:ArrayOfGroups"/>
     </wsdl:message>
 
