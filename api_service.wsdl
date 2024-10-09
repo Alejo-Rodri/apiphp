@@ -114,6 +114,7 @@
     </wsdl:message>
     
     <wsdl:message name="GetUsersFromGroupResponse">
+        <wsdl:part name="status" element="tns:ArrayOfGroups"/>
         <wsdl:part name="users" element="tns:ArrayOfUsers"/>
     </wsdl:message>
 
