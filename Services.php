@@ -7,6 +7,7 @@ require_once './services/Auth2Op.php';
 require_once './services/CreateOp.php';
 require_once './services/ReadOp.php';
 require_once './services/DeleteOp.php';
+require_once './services/UpdateOp.php';
 require_once './utils/DataFormatter.php';
 
 // ou fileGroup almacena quien pertenece a que grupo para ver si puede consumir el archivo
